@@ -20,8 +20,9 @@
           :rules="[validatePassword]"
           :error-messages="errorMessages"
         />
+        <span v-if="error" class="text-red">{{ error }}</span>
         <span>
-          Already has user? <RouterLink :to="{name: 'login'}">Login</RouterLink>
+          Already has user? <RouterLink :to="{ name: 'login' }">Login</RouterLink>
         </span>
         <VBtn type="submit" text="Register" />
       </div>
@@ -42,10 +43,11 @@ const password = ref('')
 const tempPassword = ref('')
 const name = ref('')
 const errorMessages = ref('')
+const error = ref('')
 const registerRef = ref(null)
 
 function validatePassword (password) {  
-  return (password.length >= 8) || 'Password should more than 8 character'  
+  return (password.length >= 4) || 'Password should more than 4 character'  
 }
 
 async function onSubmitButtonClick () {
@@ -61,10 +63,13 @@ async function onSubmitButtonClick () {
   
   try {
     const res = await userApi.register(username.value, password.value, name.value)
+console.log('res', res);
 
     if (res.success) {
       localStorageUtil.set('userId', res.data.userId)
       router.push({name: 'record'})
+    } else {
+      error.value = res.message
     }
   } catch (error) {
     console.log('Register err -> ', error)

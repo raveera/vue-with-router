@@ -4,9 +4,13 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import localStorageUtil from '@/util/localStorage-util';
 
-  function onLogoutButtonClick () {
-    localStorageUtil.remove('userId')
-  }
+const router = useRouter()
+
+function onLogoutButtonClick () {
+  localStorageUtil.remove('userId')
+  router.push({name: 'login'})
+}
 </script>

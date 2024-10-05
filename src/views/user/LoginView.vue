@@ -5,9 +5,9 @@
         <h1 class="mx-auto">Login</h1>
         <InputText v-model="username" label="Username*" required/>
         <InputText v-model="password" label="Password*" type="password" required/>
-        <span v-if="hasError" class="text-red">Username or Password is invalid</span>
+        <span v-if="error" class="text-red">{{ error }}</span>
         <span>
-          Didn't has user ? <RouterLink :to="{name: 'register'}">Create User</RouterLink>
+          Didn't has user ? <RouterLink :to="{ name: 'register' }">Create User</RouterLink>
         </span>
         <VBtn type="submit" text="Login"/>
       </div>
@@ -25,7 +25,7 @@ const router = useRouter()
 
 const username = ref('')
 const password = ref('')
-const hasError = ref(false)
+const error = ref(false)
 const loginRef = ref(null)
 
 async function onSubmitButtonClick () {
@@ -42,7 +42,7 @@ async function onSubmitButtonClick () {
       localStorageUtil.set('userId', res.data.user_id)
       router.push({name: 'record'})
     } else {
-      hasError.value = true
+      error.value = res.message
     }
   } catch (error) {
     console.log('Login err -> ', error)
