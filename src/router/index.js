@@ -8,15 +8,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      component: LoginView,
-      meta: {
-        requireAuth: false
-      }
-    },
-    {
       path: '/login',
       name: 'login',
+      alias: '/',
       component: LoginView,
       meta: {
         requireAuth: false
@@ -45,15 +39,14 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => { 
-  if (to.meta.requireAuth) {
-    const token = localStorageUtil.get('userId')
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.meta.requireAuth
+  const userId = localStorageUtil.get('userId')
 
-    if (token) {
-      next()
-    } else {
-      next('/login')
-    }
+  if (requiresAuth && !Boolean(userId)) {
+    next('/login')
+  }  else if (!requiresAuth && Boolean(userId)) {
+    next({ name: 'record', params: { id: userId } })
   } else {
     next()
   }
