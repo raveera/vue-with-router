@@ -5,7 +5,9 @@
         {{ title }}
       </VCardTitle>
       <VCardText>
-        <slot name="body" />
+        <slot name="body">
+          are your sure ?
+        </slot>
       </VCardText>
       <VCardActions class="text-uppercase border-t">
         <VSpacer />
@@ -37,7 +39,6 @@ defineProps({
     default: ''
   }
 })
-
 
 const ACTION_THEME = {
   'create': {
