@@ -63,11 +63,11 @@ async function onSubmitButtonClick () {
   
   try {
     const res = await userApi.register(username.value, password.value, name.value)
-console.log('res', res);
 
     if (res.success) {
-      localStorageUtil.set('userId', res.data.userId)
-      router.push({name: 'record'})
+      const userId = res.data.userId
+      localStorageUtil.set('userId', userId)
+      router.push({name: 'record', params: userId})
     } else {
       error.value = res.message
     }

@@ -39,8 +39,9 @@ async function onSubmitButtonClick () {
     const res = await userApi.login(username.value, password.value)
 
     if (res.success) {
-      localStorageUtil.set('userId', res.data.user_id)
-      router.push({name: 'record'})
+      const userId = res.data.user_id
+      localStorageUtil.set('userId', userId)
+      router.push({name: 'record', params: { id: userId }})
     } else {
       error.value = res.message
     }

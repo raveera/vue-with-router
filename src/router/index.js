@@ -31,16 +31,16 @@ const router = createRouter({
       }
     },
     {
-      path: '/record',
+      path: '/record/:id',
       name: 'record',
       component: RecordListView,
       meta: {
         requireAuth: true
       },
-      children: [
-        { path: '/create', component: ''},
-        { path: '/edit', component: ''}
-      ]
+      // children: [
+      //   { path: '/create', component: ''},
+      //   { path: '/edit', component: ''}
+      // ]
     }
   ]
 })

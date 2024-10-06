@@ -20,7 +20,7 @@ const vuetify = createVuetify({
         density: 'compact'
       },
       VBtn: {
-        // ripple: false,
+        elevation: 0
       }
     },
     blueprint: md2
