@@ -30,7 +30,37 @@ export async function createRecord (userId, name) {
   }
 }
 
+export async function editRecord (recordId, name) {
+  const url = `${recordPath}/edit`
+  const body = {
+    recordId,
+    name
+  }
+
+  try {
+    const response = await Api.put(url, body)
+
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function deleteRecord (recordId) {
+  const url = `${recordPath}/${recordId}`
+
+  try {
+    const response = await Api.remove(url)
+
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default {
   getRecordList,
-  createRecord
+  createRecord,
+  editRecord,
+  deleteRecord
 }
