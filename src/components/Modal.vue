@@ -12,13 +12,11 @@
       <VCardActions class="text-uppercase border-t">
         <VSpacer />
         <VBtn
-          variant="outlined"
           color="grey"
           text="Cancel"
           @click="$emit('onCancelClick')"
         />
         <VBtn
-          variant="outlined"
           :color="ACTION_THEME[action].color"
           :text="ACTION_THEME[action].confirmBtnText"
           @click="$emit('onConfirmClick')"

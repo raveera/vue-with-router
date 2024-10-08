@@ -7,10 +7,11 @@
       <VToolbar class="mb-2 px-2" style="border-radius: 8px;" color="grey-darken-2">
         <VSpacer />
         <VBtn
-          variant="outlined"
-          color="white"
+          variant="flat"
+          color="primary"
           @click="onLogoutButtonClick"
-        >
+          >
+          <VIcon :icon="mdiLogout" color="white"/>
           Logout
         </VBtn>
       </VToolbar>
@@ -27,6 +28,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { mdiLogout } from '@mdi/js'
 import localStorageUtil from '@/util/localStorage-util'
 
 const router = useRouter()
