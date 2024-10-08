@@ -11,6 +11,17 @@ import router from './router'
 
 const app = createApp(App)
 
+const theme = {
+  themes: {
+    light: {
+      dark: false,
+      colors: {
+        primary: '#03A9F4'
+      }
+    },
+  },
+}
+
 const vuetify = createVuetify({
     components,
     directives,
@@ -23,7 +34,8 @@ const vuetify = createVuetify({
         elevation: 0
       }
     },
-    blueprint: md2
+    blueprint: md2,
+    theme: theme
   })
 
 app.use(router)

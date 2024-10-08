@@ -1,6 +1,6 @@
 <template>
-  <VForm ref="registerRef" validate-on="submit lazy" @submit.prevent="onSubmitButtonClick">
-    <VCard class="border pa-4" style="min-width: 360px;">
+  <VForm ref="registerRef" class="d-flex justify-center" validate-on="submit lazy" @submit.prevent="onSubmitButtonClick">
+    <VCard class="border pa-4">
       <div class="d-flex flex-column ga-4">
         <h1 class="mx-auto">Register</h1>
         <InputText v-model="name" label="Name*" required />
@@ -22,7 +22,7 @@
         />
         <span v-if="error" class="text-red">{{ error }}</span>
         <span>
-          Already has user? <RouterLink :to="{ name: 'login' }">Login</RouterLink>
+          Already has user? <RouterLink :to="{ name: 'login' }" class="text-primary">Login</RouterLink>
         </span>
         <VBtn type="submit" text="Register" />
       </div>
@@ -76,3 +76,10 @@ async function onSubmitButtonClick () {
   }
 } 
 </script>
+
+<style scoped>
+.v-card {
+  min-width: 360px;
+  max-width: 480px;
+}
+</style>

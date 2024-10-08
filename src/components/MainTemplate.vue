@@ -1,20 +1,28 @@
 <template>
-  <VToolbar class="mb-2 px-2" style="border-radius: 8px;" color="grey-darken-2">
-    <VSpacer />
-    <VBtn
-      variant="outlined"
-      color="white"
-      @click="onLogoutButtonClick"
+  <VRow justify="center" align-content="center">
+    <VCol
+      lg="12"
+      xl="10"
     >
-      Logout
-    </VBtn>
-  </VToolbar>
-  <VCard class="main-box">
-    <VRow no-gutters justify="space-between" align-content="center" class="mb-2">
-      <slot name="title" />
-    </VRow>
-    <slot name="body" />
-  </VCard>
+      <VToolbar class="mb-2 px-2" style="border-radius: 8px;" color="grey-darken-2">
+        <VSpacer />
+        <VBtn
+          variant="outlined"
+          color="white"
+          @click="onLogoutButtonClick"
+        >
+          Logout
+        </VBtn>
+      </VToolbar>
+      <VCard class="main-box w-100">
+        <VRow no-gutters justify="space-between" align-content="center" class="mb-2">
+          <slot name="title" />
+        </VRow>
+        <slot name="item" />
+        <slot name="body" />
+      </VCard>
+    </VCol>
+  </VRow>
 </template>
 
 <script setup>
@@ -31,7 +39,6 @@ function onLogoutButtonClick () {
 
 <style scoped>
   .main-box {
-    width:  80vw;
     height: 80vh;
     padding: 16px;
   }

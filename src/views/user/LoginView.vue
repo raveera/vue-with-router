@@ -1,13 +1,13 @@
 <template>
-  <VForm ref="loginRef" validate-on="submit lazy" @submit.prevent="onSubmitButtonClick">
-    <VCard class="border pa-4" style="min-width: 360px;">
+  <VForm ref="loginRef" class="d-flex justify-center" validate-on="submit lazy" @submit.prevent="onSubmitButtonClick">
+    <VCard class="border pa-4">
       <div class="d-flex flex-column ga-4">
         <h1 class="mx-auto">Login</h1>
         <InputText v-model="username" label="Username*" required/>
         <InputText v-model="password" label="Password*" type="password" required/>
         <span v-if="error" class="text-red">{{ error }}</span>
         <span>
-          Didn't has user ? <RouterLink :to="{ name: 'register' }">Create User</RouterLink>
+          Didn't has user ? <RouterLink :to="{ name: 'register' }" class="text-primary">Create User</RouterLink>
         </span>
         <VBtn type="submit" text="Login"/>
       </div>
@@ -50,3 +50,10 @@ async function onSubmitButtonClick () {
   }
 } 
 </script>
+
+<style scoped>
+.v-card {
+  min-width: 360px;
+  max-width: 480px;
+}
+</style>
