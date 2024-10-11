@@ -45,8 +45,11 @@ const vuetify = createVuetify({
         }
       },
       VBtnIcon: {
-        height: '40',
-        width: '40'
+        maxHeight: '40',
+        maxWidth: '40',
+        icon: true,
+        size: 'x-small',
+        variant: 'flat'
       }
     },
     blueprint: md2,

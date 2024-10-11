@@ -4,8 +4,7 @@
       lg="12"
       xl="10"
     >
-      <VToolbar class="mb-2 px-2" style="border-radius: 8px;" color="grey-darken-2">
-        <VSpacer />
+      <VRow justify="end" no-gutters class="my-4">
         <VBtn
           variant="flat"
           color="primary"
@@ -14,7 +13,7 @@
           <VIcon :icon="mdiLogout" color="white"/>
           Logout
         </VBtn>
-      </VToolbar>
+      </VRow>
       <VCard class="main-box w-100">
         <VRow no-gutters justify="space-between" align-content="center" class="mb-2">
           <slot name="title" />
