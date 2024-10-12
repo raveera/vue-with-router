@@ -4,7 +4,7 @@
       lg="12"
       xl="10"
     >
-      <VRow justify="end" no-gutters class="my-4">
+      <VRow justify="end" no-gutters class="mb-2 px-4">
         <VBtn
           variant="flat"
           color="primary"
@@ -14,7 +14,7 @@
           Logout
         </VBtn>
       </VRow>
-      <VCard class="main-box w-100">
+      <VCard class="main-box w-100" elevation="0">
         <VRow no-gutters justify="space-between" align-content="center" class="mb-2">
           <slot name="title" />
         </VRow>
@@ -40,7 +40,7 @@ function onLogoutButtonClick () {
 
 <style scoped>
   .main-box {
-    height: 80vh;
+    height: 85vh;
     padding: 16px;
   }
 </style>

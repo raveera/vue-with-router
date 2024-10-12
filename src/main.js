@@ -31,13 +31,17 @@ const vuetify = createVuetify({
       VBtnIcon: VBtn
     },
     defaults: {
+      VRow: {
+        noGutters: true
+      },
       VTextField: {
         variant: 'outlined',
         density: 'compact'
       },
       VBtn: {
         elevation: 0,
-        variant: 'flat'
+        variant: 'flat',
+        minHeight: '40px'
       },
       VCardActions: {
         VBtn: {

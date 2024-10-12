@@ -13,7 +13,7 @@ import { requireValue } from '@/util/validate-util'
 const props = defineProps({
 	label: {
 		type: String,
-		required: true
+		default: ''
 	},
 	hideDetails: {
 		type: Boolean,
