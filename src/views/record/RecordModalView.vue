@@ -7,7 +7,7 @@
     @on-confirm-click="onConfirmClick"
   >
     <template #body>
-      <VForm v-if="(action !== 'delete')" ref="modalRef">
+      <VForm ref="modalRef">
         <InputText v-model="recordName" label="Name" required autofocus/>
         <span v-if="errorMsg" class="text-red">{{ errorMsg }}</span>
       </VForm>
@@ -17,6 +17,7 @@
 
 <script setup>
 import { onBeforeMount, ref } from 'vue'
+import { ACTION } from '@/constant'
 import recordApi from '@/api/record-api'
 import Modal from '@/components/Modal.vue'
 import InputText from '@/components/InputText.vue'
@@ -40,16 +41,16 @@ const modelValue = defineModel({ required: true })
 const emits = defineEmits(['getRecordList'])
 
 const MODAL_TITLE = {
-  'create': 'Create Record',
-  'edit': 'Edit Record',
-  'delete': 'Delete Record'
+  [ACTION.CREATE]: 'Create Record',
+  [ACTION.EDIT]: 'Edit Record',
+  [ACTION.DELETE]: 'Delete Record'
 }
 
 const recordName = ref('')
 const errorMsg = ref('')
 const modalRef = ref(null)
 
-onBeforeMount(() => recordName.value = (props.action === 'edit') ? props.record.name : '' )
+onBeforeMount(() => recordName.value = (props.action === ACTION.EDIT) ? props.record.name : '' )
 
 function closeModal () {
   modelValue.value = false
@@ -57,17 +58,17 @@ function closeModal () {
 
 async function onConfirmClick () {
   switch (props.action) {
-    case 'create':
+    case ACTION.CREATE:
       createRecord()
       break
-    case 'edit':
+    case ACTION.EDIT:
       if (props.record.name === recordName.value) {
         closeModal()
       } else {
         editRecord()
       }
       break
-    case 'delete':
+    case ACTION.DELETE:
       deleteRecord()
       break
   }

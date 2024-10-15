@@ -1,25 +1,26 @@
 <template>
   <VDialog max-width="960" max-height="70vh">
     <VCard>
-      <VCardTitle :class="[ACTION_THEME[action].bgColor]">
+      <VCardTitle :class="[ACTION_THEME[action].bgColor, 'text-uppercase']">
         {{ title }}
       </VCardTitle>
       <VCardText>
-        <slot name="body">
+        <template v-if="action === ACTION.DELETE">
           are your sure ?
-        </slot>
+        </template>
+        <slot name="body" v-else />
       </VCardText>
       <VCardActions class="text-uppercase border-t">
         <VSpacer />
         <VBtn
           color="grey"
           text="Cancel"
-          @click="$emit('onCancelClick')"
+          @click="emits('onCancelClick')"
         />
         <VBtn
           :color="ACTION_THEME[action].color"
           :text="ACTION_THEME[action].confirmBtnText"
-          @click="$emit('onConfirmClick')"
+          @click="emits('onConfirmClick')"
           />
       </VCardActions>
     </VCard>
@@ -27,6 +28,8 @@
 </template>
 
 <script setup>
+import { ACTION } from '@/constant'
+
 defineProps({
   action: {
     type: String,
@@ -38,18 +41,20 @@ defineProps({
   }
 })
 
+const emits = defineEmits(['onCancelClick', 'onConfirmClick'])
+
 const ACTION_THEME = {
-  'create': {
+  [ACTION.CREATE]: {
     confirmBtnText: 'Create',
     color: 'info',
     bgColor: 'bg-info'
   },
-  'edit': {
+  [ACTION.EDIT]: {
     confirmBtnText: 'Save',
     color: 'success',
     bgColor: 'bg-success'
   },
-  'delete': {
+  [ACTION.DELETE]: {
     confirmBtnText: 'Delete',
     color: 'error',
     bgColor: 'bg-error'

@@ -68,7 +68,7 @@
     v-if="recordModalOpen"
     v-model="recordModalOpen"
     :user-id="userId"
-    :record="tempRecord"
+    :record="record"
     :action="action"
     @get-record-list="getRecordList"
   />
@@ -76,8 +76,9 @@
 
 <script setup>
 import { computed, onBeforeMount, reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { mdiPencil, mdiDelete } from '@mdi/js'
+import { useRouter } from 'vue-router'
+import { mdiPencil, mdiDelete, mdiOpenInNew } from '@mdi/js'
+import { ACTION } from '@/constant'
 import UiUtil from '@/util/ui-util'
 import recordApi from '@/api/record-api'
 import MainTemplate from '@/components/MainTemplate.vue'
@@ -90,7 +91,7 @@ const route = useRoute()
 const userId = ref('')
 const action = ref('')
 const keyword = ref('')
-const tempRecord = ref({})
+const record = ref({})
 const recordList = ref([])
 const recordModalOpen = ref(false)
 
@@ -125,13 +126,13 @@ const userPerPage = computed(() => {
 })
 
 function onCreateRecordButtonClick () {
-  action.value = 'create'
+  action.value = ACTION.CREATE
   recordModalOpen.value = true
 }
 
-function onEditRecordButtonClick (record) {
-  tempRecord.value = record
-  action.value = 'edit'
+function onEditRecordButtonClick (tempRecord) {
+  record.value = tempRecord
+  action.value = ACTION.EDIT
   
   recordModalOpen.value = true
 }
