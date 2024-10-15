@@ -31,6 +31,13 @@
               <td v-html="UiUtil.highlightText(record.name, keyword)" />
               <td class="d-flex ga-2 py-2">
                 <VBtnIcon
+                  color="warning"
+                  v-tooltip:bottom="'open band list'"
+                  @click="onViewBandButtonClick(record.record_id)"
+                >
+                  <VIcon :icon="mdiOpenInNew" />
+                </VBtnIcon>
+                <VBtnIcon
                   color="success"
                   v-tooltip:bottom="'Edit record'"
                   @click="onEditRecordButtonClick(record)"
@@ -129,15 +136,19 @@ function onEditRecordButtonClick (record) {
   recordModalOpen.value = true
 }
 
-function onDeleteRecordButtonClick (record) {
-  action.value = 'delete'
-  tempRecord.value = record
+function onDeleteRecordButtonClick (tempRecord) {
+  record.value = tempRecord
+  action.value = ACTION.DELETE
   recordModalOpen.value = true
+}
+
+function onViewBandButtonClick (recordId) {
+  router.push({name: 'band', params: { recordId: recordId }})
 }
 
 async function getRecordList () {
   try {
-    const response = await recordApi.getRecordList(userId.value)
+    const response = await recordApi.getRecordList()
 
     if (response.success) {
       recordList.value = response.data

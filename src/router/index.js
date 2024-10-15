@@ -3,6 +3,7 @@ import localStorageUtil from '@/util/localStorage-util'
 import RegisterView from '@/views/user/RegisterView.vue'
 import LoginView from '@/views/user/LoginView.vue'
 import RecordListView from '@/views/record/RecordListView.vue'
+import BandListView from '@/views/band/BandListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +36,14 @@ const router = createRouter({
       //   { path: '/create', component: ''},
       //   { path: '/edit', component: ''}
       // ]
+    },
+    {
+      path: '/:recordId/band',
+      name: 'band',
+      component: BandListView,
+      meta: {
+        requireAuth: true
+      },
     }
   ]
 })
