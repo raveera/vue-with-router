@@ -26,8 +26,8 @@
           </tr>
         </thead>
         <tbody>
-          <template v-if="userPerPage.length > 0">
-            <tr v-for="(record, index) in userPerPage"
+          <template v-if="recordPerPage.length > 0">
+            <tr v-for="(record, index) in recordPerPage"
               :key="`record-${index}`"
             >
               <td>{{ index + 1 }}</td>
@@ -88,8 +88,9 @@ import MainTemplate from '@/components/MainTemplate.vue'
 import RecordModalView from './RecordModalView.vue'
 import InputText from '@/components/InputText.vue'
 import Pagination from '@/components/Pagination.vue'
+import localStorageUtil from '@/util/localStorage-util'
 
-const route = useRoute()
+const router = useRouter()
 
 const userId = ref('')
 const action = ref('')
@@ -105,13 +106,17 @@ const pagination = reactive({
 })
 
 onBeforeMount( async () => {
-  userId.value = route.params.id
+  userId.value = localStorageUtil.get('userId')
   await getRecordList()
 })
 
 const filteredRecordList = computed(() => {
+  const tempKeyword = (keyword.value) ? keyword.value.toLowerCase() : ''
+
   const tempFilteredRecordList = recordList.value.filter((record) => {
-    return record.name.includes(keyword.value)
+    const recordName = record.name.toLowerCase()
+
+    return recordName.includes(tempKeyword)
   })
 
   const tempRecordList = (keyword.value) ? tempFilteredRecordList : recordList.value
@@ -121,7 +126,7 @@ const filteredRecordList = computed(() => {
   return tempRecordList
 })
 
-const userPerPage = computed(() => {
+const recordPerPage = computed(() => {
   const startIndex = (pagination.currentPage - 1) * pagination.itemPerPage
   const endIndex = pagination.currentPage * pagination.itemPerPage
 

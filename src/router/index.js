@@ -26,7 +26,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/record/:id',
+      path: '/record',
       name: 'record',
       component: RecordListView,
       meta: {

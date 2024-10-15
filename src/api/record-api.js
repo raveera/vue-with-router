@@ -2,8 +2,8 @@ import Api from "@/api/base-api"
 
 const recordPath = '/record'
 
-export async function getRecordList (userId) {
-  const url = `${recordPath}/${userId}`
+export async function getRecordList () {
+  const url = recordPath
 
   try {
     const response = await Api.get(url)
