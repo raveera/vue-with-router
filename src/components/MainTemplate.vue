@@ -4,15 +4,21 @@
       lg="12"
       xl="10"
     >
-      <VRow justify="end" no-gutters class="mb-2 px-4">
-        <VBtn
-          variant="flat"
-          color="primary"
-          @click="onLogoutButtonClick"
+      <VRow no-gutters class="mb-2">
+        <template v-if="$route.name !== 'record'">
+          <VBtn size="small" :icon="mdiArrowLeftThick" @click="router.go(-1)" />
+        </template>
+        <VSpacer />
+        <div class="d-flex align-center">
+          <VBtn
+            variant="flat"
+            color="primary"
+            @click="onLogoutButtonClick"
           >
-          <VIcon :icon="mdiLogout" color="white"/>
-          Logout
-        </VBtn>
+            <VIcon :icon="mdiLogout" color="white"/>
+            Logout
+          </VBtn>
+        </div>
       </VRow>
       <VCard class="main-box w-100" elevation="0">
         <VRow no-gutters justify="space-between" align-content="center" class="mb-2">
@@ -27,7 +33,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { mdiLogout } from '@mdi/js'
+import { mdiLogout, mdiArrowLeftThick } from '@mdi/js'
 import localStorageUtil from '@/util/localStorage-util'
 
 const router = useRouter()
@@ -41,6 +47,5 @@ function onLogoutButtonClick () {
 <style scoped>
   .main-box {
     height: 85vh;
-    padding: 16px;
   }
 </style>

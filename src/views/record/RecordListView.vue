@@ -1,7 +1,10 @@
 <template>
   <MainTemplate>
     <template #title>
-      <h1 class="font-weight-bold"> Record List </h1>
+      <div>
+        <h1 class="font-weight-bold"> Record List </h1>
+        <span class="text-subtitle-2">Total {{ recordPerPage.length }} record</span>
+      </div>
     </template>
     <template #item>
       <VRow justify="space-between" class="my-2">
@@ -17,7 +20,7 @@
       <VTable hover height="60vh" fixed-header density="comfortable">
         <thead>
           <tr>
-            <th style="width: 50px;">#</th>
+            <th style="min-width: 50px;">#</th>
             <th style="width: 100%;">Name</th>
             <th></th>
           </tr>
