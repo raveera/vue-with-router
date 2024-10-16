@@ -2,11 +2,12 @@ import Api from "@/api/base-api"
 
 const bandPath = '/band'
 
-export async function getBandList (recordId) {
+export async function getBandList (recordId, bandName) {
   const url = `${bandPath}/${recordId}`
+  const body = { bandName }
 
   try {
-    const response = await Api.get(url)
+    const response = await Api.post(url, body)
 
     return response
   } catch (error) {

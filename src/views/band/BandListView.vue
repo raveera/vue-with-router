@@ -2,14 +2,21 @@
   <MainTemplate>
     <template #title>
       <div>
-        <h1 class="font-weight-bold"> {{ recordName }} Band List </h1>
+        <h1 class="font-weight-bold"> Band List of '{{ recordName }}'  </h1>
         <span class="text-subtitle-2"> Total {{ bandList.length }} band</span>
       </div>
     </template>
     <template #item>
       <VRow justify="space-between" class="my-2">
         <VCol sm="4" md="3" lg="3">
-          <!-- <InputText v-model="keyword" placeholder="Search Record" /> -->
+          <InputText
+            v-model="keyword"
+            placeholder="Search Band"
+            clearable
+            :prepend-inner-icon="mdiMagnify"
+            @click:clear="onClearClick"
+            @input="getBandList"
+          />
         </VCol>
         <VBtn color="info" @click="onCreateBandButtonClick">
           Create Band
@@ -32,7 +39,7 @@
             >
               <td>{{ index + 1 }}</td>
               <td v-html="UiUtil.highlightText(band.band_name, keyword)" />
-              <td class="d-flex ga-2 py-2">
+              <td class="d-flex ga-2 py-2 justify-center">
                 <VBtnIcon
                   color="success"
                   v-tooltip:bottom="'Edit band'"
@@ -72,12 +79,14 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { mdiPencil, mdiDelete } from '@mdi/js'
+import { mdiPencil, mdiDelete, mdiMagnify } from '@mdi/js'
 import { ACTION } from '@/constant'
 import UiUtil from '@/util/ui-util'
 import bandApi from '@/api/band-api'
 import MainTemplate from '@/components/MainTemplate.vue'
+import InputText from '@/components/InputText.vue'
 import BandModalView from './BandModalView.vue'
+import { debounce } from 'lodash'
 
 const route = useRoute()
 
@@ -93,6 +102,11 @@ onBeforeMount( async () => {
   recordId.value = route.params.recordId
   await getBandList()
 })
+
+async function onClearClick () {
+  keyword.value = ''
+  await getBandList()
+}
 
 function onCreateBandButtonClick () {
   action.value = ACTION.CREATE
