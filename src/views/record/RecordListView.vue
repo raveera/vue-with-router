@@ -9,7 +9,13 @@
     <template #item>
       <VRow justify="space-between" class="my-2">
         <VCol sm="4" md="3" lg="3">
-          <InputText v-model="keyword" placeholder="Search Record" clearable @click:clear="keyword = ''" />
+          <InputText
+            v-model="keyword"
+            placeholder="Search Record"
+            clearable
+            :prepend-inner-icon="mdiMagnify"
+            @click:clear="keyword = ''"
+          />
         </VCol>
         <VBtn color="info" @click="onCreateRecordButtonClick">
           Create Record
@@ -31,13 +37,13 @@
             <tr v-for="(record, index) in recordPerPage"
               :key="`record-${index}`"
             >
-              <td>{{ index + 1 }}</td>
+              <td>{{ getRowIndex(index) }}</td>
               <td v-html="UiUtil.highlightText(record.name, keyword)" />
               <td class="text-center">{{ record.total_band }}</td>
               <td class="d-flex ga-2 py-2 justify-center">
                 <VBtnIcon
                   color="warning"
-                  v-tooltip:bottom="'open band list'"
+                  v-tooltip:bottom="'go to band list'"
                   @click="onViewBandButtonClick(record.record_id)"
                 >
                   <VIcon :icon="mdiOpenInNew" />
@@ -51,7 +57,7 @@
                 </VBtnIcon>
                 <VBtnIcon
                   color="error"
-                  v-tooltip:bottom="'Edit record'"
+                  v-tooltip:bottom="'Delete record'"
                   @click="onDeleteRecordButtonClick(record)"
                 >
                   <VIcon :icon="mdiDelete" />
@@ -82,7 +88,7 @@
 <script setup>
 import { computed, onBeforeMount, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { mdiPencil, mdiDelete, mdiOpenInNew } from '@mdi/js'
+import { mdiPencil, mdiDelete, mdiOpenInNew, mdiMagnify } from '@mdi/js'
 import { ACTION } from '@/constant'
 import UiUtil from '@/util/ui-util'
 import recordApi from '@/api/record-api'
@@ -134,6 +140,10 @@ const recordPerPage = computed(() => {
 
   return filteredRecordList.value.slice(startIndex, endIndex)
 })
+
+function getRowIndex (index) {
+  return (index + 1) + ((pagination.currentPage - 1) * pagination.itemPerPage)
+}
 
 function onCreateRecordButtonClick () {
   action.value = ACTION.CREATE
