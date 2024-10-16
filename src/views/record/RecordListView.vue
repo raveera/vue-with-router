@@ -168,8 +168,4 @@ async function getRecordList () {
   }
 }
 </script>
-<style scoped>
-.v-table.v-table--fixed-header > .v-table__wrapper > table > thead > tr > th {
-  background-color: var(--vt-c-text-dark-2);
-}
-</style>
+
