@@ -2,7 +2,7 @@
   <MainTemplate>
     <template #title>
       <div>
-        <h1 class="font-weight-bold"> Band List </h1>
+        <h1 class="font-weight-bold"> {{ recordName }} Band List </h1>
         <span class="text-subtitle-2"> Total {{ bandList.length }} band</span>
       </div>
     </template>
@@ -83,6 +83,7 @@ const route = useRoute()
 
 const keyword = ref('')
 const action = ref('')
+const recordName = ref('')
 const recordId = ref(0)
 const isOpenModal = ref(false)
 const band = ref({})
@@ -115,7 +116,8 @@ async function getBandList () {
     const response = await bandApi.getBandList(recordId.value)
 
     if (response.success) {
-      bandList.value = response.data
+      recordName.value = response.data.recordName
+      bandList.value = response.data.bandList
     }
   } catch (error) {
     console.log('get band list error -> ', error)
