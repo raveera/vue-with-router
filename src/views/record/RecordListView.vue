@@ -21,8 +21,9 @@
         <thead>
           <tr>
             <th style="min-width: 50px;">#</th>
-            <th style="width: 100%;">Name</th>
-            <th></th>
+            <th style="min-width: 480px;">Name</th>
+            <th class="text-center">Total Band</th>
+            <th class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +33,8 @@
             >
               <td>{{ index + 1 }}</td>
               <td v-html="UiUtil.highlightText(record.name, keyword)" />
-              <td class="d-flex ga-2 py-2">
+              <td class="text-center">{{ record.total_band }}</td>
+              <td class="d-flex ga-2 py-2 justify-center">
                 <VBtnIcon
                   color="warning"
                   v-tooltip:bottom="'open band list'"
