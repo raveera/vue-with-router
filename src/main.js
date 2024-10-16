@@ -1,5 +1,6 @@
 import './assets/main.css'
 import 'vuetify/styles'
+import 'vue-loading-overlay/dist/css/index.css'
 
 import { createApp } from 'vue'
 import { createVuetify } from 'vuetify'
