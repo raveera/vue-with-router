@@ -18,6 +18,7 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue'
 import { ACTION } from '@/constant'
+import UiUtil from '@/util/ui-util'
 import recordApi from '@/api/record-api'
 import Modal from '@/components/Modal.vue'
 import InputText from '@/components/InputText.vue'
@@ -81,6 +82,8 @@ async function createRecord () {
     return
   }
 
+  const loader = UiUtil.loader.show()
+
   try {
     const response = await recordApi.createRecord(props.userId, recordName.value)
 
@@ -92,6 +95,8 @@ async function createRecord () {
     }
   } catch (error) {
     console.log('create record error ->', error)
+  } finally {
+    loader.hide()
   }
 }
 
@@ -101,6 +106,8 @@ async function editRecord () {
   if (!valid) {
     return
   }
+
+  const loader = UiUtil.loader.show()
 
   try {
     const response = await recordApi.editRecord(props.record.record_id, recordName.value)
@@ -113,10 +120,14 @@ async function editRecord () {
     }
   } catch (error) {
     console.log('edit record error ->', error)
+  } finally {
+    loader.hide()
   }
 }
 
 async function deleteRecord () {
+  const loader = UiUtil.loader.show()
+
   try {
     const response = await recordApi.deleteRecord(props.record.record_id)
 
@@ -128,6 +139,8 @@ async function deleteRecord () {
     }
   } catch (error) {
     console.log('delete record error ->', error)
+  } finally {
+    loader.hide()
   }
 }
 </script>

@@ -17,6 +17,7 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue'
 import { ACTION } from '@/constant'
+import UiUtil from '@/util/ui-util'
 import Modal from '@/components/Modal.vue'
 import InputText from '@/components/InputText.vue'
 import bandApi from '@/api/band-api'
@@ -81,6 +82,8 @@ async function createBand () {
     return
   }
 
+  const loader = UiUtil.loader.show()
+
   try {
     const response = await bandApi.createBand(props.recordId, bandName.value)
 
@@ -92,6 +95,8 @@ async function createBand () {
     }
   } catch (error) {
     console.log('create band error ->', error)
+  } finally {
+    loader.hide()
   }
 }
 
@@ -101,6 +106,8 @@ async function editBand () {
   if (!valid) {
     return
   }
+
+  const loader = UiUtil.loader.show()
 
   try {
     const response = await bandApi.editBand(props.recordId, props.band.band_id, bandName.value)
@@ -113,10 +120,14 @@ async function editBand () {
     }
   } catch (error) {
     console.log('edit band error ->', error)
+  } finally {
+    loader.hide()
   }
 }
 
 async function deleteBand () {
+  const loader = UiUtil.loader.show()
+
   try {
     const response = await bandApi.deleteBand(props.band.band_id)
 
@@ -128,6 +139,8 @@ async function deleteBand () {
     }
   } catch (error) {
     console.log('delete band error ->', error)
+  } finally {
+    loader.hide()
   }
 }
 </script>

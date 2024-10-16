@@ -112,15 +112,19 @@ function onDeleteBandButtonClick (tempBand) {
 }
 
 async function getBandList () {
-  try {
-    const response = await bandApi.getBandList(recordId.value)
+  const loader = UiUtil.loader.show()
 
+  try {
+    const response = await bandApi.getBandList(recordId.value, keyword.value)
+    
     if (response.success) {
       recordName.value = response.data.recordName
       bandList.value = response.data.bandList
     }
   } catch (error) {
     console.log('get band list error -> ', error)
+  } finally {
+    loader.hide()
   }
 }
 </script>

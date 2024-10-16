@@ -158,6 +158,8 @@ function onViewBandButtonClick (recordId) {
 }
 
 async function getRecordList () {
+  const loader = UiUtil.loader.show()
+
   try {
     const response = await recordApi.getRecordList()
 
@@ -167,6 +169,8 @@ async function getRecordList () {
     
   } catch (error) {
     console.log('Get record list error', error)
+  } finally {
+    loader.hide()
   }
 }
 </script>
